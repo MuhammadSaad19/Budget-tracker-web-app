@@ -1,0 +1,102 @@
+.budget{
+    border: 1px solid rgba(224, 224, 224, 0.918);
+    box-shadow: 3px 3px 6px rgba(56, 55, 55, 0.781);
+    width: fit-content;
+    margin: 30px;
+}   
+
+.budget-title{
+   
+    font-weight: bolder;
+    font-size:xx-large;
+    padding-top:20px;
+    text-align: center;
+}
+.submit-panel{
+    display: flex;
+    justify-content: space-between;
+}
+.budget-entry , .expense-details , .add{
+    display: flex;
+    margin-top: 40px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.submit-panel button{
+    background-color: rgb(1, 1, 87);
+    color: aliceblue;
+    padding: 7px 10px;
+    cursor: pointer;
+    border-radius: 2px;
+    border: none;
+}
+.input-number{
+    padding-left: 15px;
+}
+.input-number input{
+    padding: 5px;
+}
+.name{
+    font-size: 17px;
+    padding: 5px;
+}
+.show-submit-amount{
+    display: flex;
+}
+.amount-panel{
+    display: flex;
+    padding: 10px 30px;
+    margin-left:20px ;
+    margin-right: 20px;
+    margin-top: 40px;
+    border: 1px solid rgba(244, 243, 243, 0.87);
+    flex: 1;
+    background-color: rgba(244, 243, 243, 0.87);
+    align-items: center;
+   
+}
+
+.image img{
+    width: 50px;    
+}
+
+.amount{
+    padding-left: 20px;
+}
+.amount-panel-name{
+    color: gray;
+}
+.box{
+    height: 300px;
+    margin-top: 50px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    border: 1px solid  rgba(244, 243, 243, 0.87) ;
+    background-color:  rgba(244, 243, 243, 0.87);
+    overflow-y: scroll;  
+}
+.box div{
+    font-size: 25px;
+    padding: 20px;
+    font-weight: bolder;
+}
+.record {
+    border-radius: 8px;
+    margin-top: 10px;
+    font-size: 5px;
+    line-height: 1.5;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+    background-color: rgb(251, 239, 224);
+  }
+  
+  .record p {
+    margin: 4px 0;
+    font-weight: 500;
+  }
+
+  .record hr {
+    margin-top: 8px;
+  }
+ 

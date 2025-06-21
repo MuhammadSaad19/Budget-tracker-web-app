@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/home.css"> 
+    <link rel="stylesheet" href="styles/general.css"> 
+
+    <title>Budget Tracker Personal</title>
+</head>
+<body>
+    <div class="budget">
+        <div class="budget-title">
+            Budget App 
+        </div>
+        <div class="submit-panel">
+            <div class="budget-entry"> 
+                <div class="name">Your Budget:</div>
+                <div class="input-number"> <input type="number" id="budgetInput" placeholder="Enter your Amount"> </div>
+                <div> <button onclick="setBudget()">Continue</button> </div>
+            </div>
+            <div class="expense-details">
+                <div class="name">Expense Amount:</div>
+                <div class="input-number"><input type="number" id="expenseInput" placeholder="Enter Expenses"></div>
+                <div> <button onclick="addExpense()">Add Expenses</button> </div>
+            </div>
+            
+            <div class="add">
+                <button>Add</button>
+            </div>
+        </div>
+
+
+        <div class="show-submit-amount">
+            <div class="amount-panel">
+               <div class="image"><img src="images/money icon.png">
+                </div> 
+                <div class="amount">
+                    <div id="budgetDisplay">$ 0.00</div>
+                    <div class="amount-panel-name">Budget</div>
+                </div>
+            </div>
+            <div class="amount-panel">
+                <div class="image"><img src="images/expense icon.png">
+                 </div> 
+                 <div class="amount">
+                     <div id="expenseDisplay">$ 0.00</div>
+                     <div class="amount-panel-name">Expense</div>
+                 </div>
+             </div>
+             <div class="amount-panel">
+                <div class="image"><img src="images/dollar icon.png">
+                 </div> 
+                 <div class="amount">
+                     <div id="remainingDisplay">$ 0.00</div>
+                     <div class="amount-panel-name">Balance</div>
+                 </div>
+             </div>
+        </div>
+        <p id="reminder" style="color: red; font-weight: bold; text-align: center; display: none;">
+           Please click the <strong>Add</strong> button to save your entry!
+        </p>
+
+        
+
+
+
+        <div class="box">
+            <div>Budget Details</div>
+            <div id="recordList"> </div>
+        </div>
+    </div>
+
+   
+
+<script>
+  let totalBudget = 0;
+  let totalExpense = 0;
+  let budgetLocked = false; // Track if user must click "Add" before entering new budget
+
+  function setBudget() {
+    if (budgetLocked) {
+      alert("Please click the ADD button before setting a new budget.");
+      return;
+    }
+
+    const input = parseFloat(document.getElementById("budgetInput").value);
+    if (isNaN(input) || input <= 0) {
+      alert("Please enter a valid budget.");
+      return;
+    }
+
+    totalBudget = input;
+    totalExpense = 0;
+    updateDisplay();
+    showReminder();
+
+
+  }
+
+  function addExpense() {
+    const input = parseFloat(document.getElementById("expenseInput").value);
+    if (isNaN(input) || input <= 0) {
+      alert("Please enter a valid expense.");
+      return;
+    }
+
+    if (input > (totalBudget - totalExpense)) {
+      alert("Not enough budget remaining.");
+      return;
+    }
+
+    totalExpense += input;
+    updateDisplay();
+    document.getElementById("expenseInput").value = '';
+    showReminder();
+  }
+
+  function updateDisplay() {
+    document.getElementById("budgetDisplay").textContent = "$ " + totalBudget.toFixed(2);
+    document.getElementById("expenseDisplay").textContent = "$ " + totalExpense.toFixed(2);
+    document.getElementById("remainingDisplay").textContent = "$ " + (totalBudget - totalExpense).toFixed(2);
+  }
+
+  function showReminder() {
+    document.getElementById("reminder").style.display = "block";
+  }
+
+  // "Add" button handler
+  document.querySelector(".add button").addEventListener("click", function () {
+    saveSession();
+    document.getElementById("reminder").style.display = "none";
+
+    // Re-enable budget input
+    document.getElementById("budgetInput").disabled = false;
+    document.getElementById("budgetInput").value = '';
+    budgetLocked = false;
+  });
+
+  function saveSession() {
+    if (totalBudget === 0 && totalExpense === 0) return;
+
+    const remaining = totalBudget - totalExpense;
+    const record = {
+      budget: totalBudget,
+      expense: totalExpense,
+      remaining: remaining
+    };
+
+    renderRecord(record);
+
+    totalBudget = 0;
+    totalExpense = 0;
+    updateDisplay();
+  }
+
+  function renderRecord(record) {
+    const div = document.createElement("div");
+    div.className = "record";
+    div.innerHTML = `
+      <p><strong>Budget:</strong> $${record.budget.toFixed(2)}</p>
+      <p><strong>Expenses:</strong> $${record.expense.toFixed(2)}</p>
+      <p><strong>Remaining:</strong> $${record.remaining.toFixed(2)}</p>
+      <hr>
+    `;
+    document.getElementById("recordList").prepend(div);
+  }
+
+  window.onload = () => {
+    updateDisplay();
+    document.getElementById("reminder").style.display = "none";
+    document.getElementById("budgetInput").disabled = false;
+    budgetLocked = false;
+  };
+</script>
+
+
+
+    
+    
+    
+
+
+
+
+</body>
+</html>
